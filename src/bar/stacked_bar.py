@@ -1,3 +1,5 @@
+#!/usr/local/bin/python3
+# -*- coding: utf-8 -*-
 """
 src: https://blog.csdn.net/m0_45209371/article/details/108241200
 
