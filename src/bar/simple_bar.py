@@ -10,16 +10,16 @@ src: https://blog.csdn.net/weixin_43799652/article/details/101320976
 from matplotlib import pyplot as plt
 import matplotlib
 # for Mac OS
-font = {
-    'family':'Heiti TC',
-    'size':12
-}
-
-# for win
 # font = {
-#     'family':'simHei',
+#     'family':'Heiti TC',
 #     'size':12
 # }
+
+# for win
+font = {
+    'family':'simHei',
+    'size':12
+}
 
 matplotlib.rc("font", **font)
 
