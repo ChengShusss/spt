@@ -46,8 +46,10 @@ def main():
 
     # 生成假数据
     data = {}
-    series = ["series-1", "series-2", "series-3", "series-4", "series-5"]
-    x_label = [f"7-{x+1}" for x in list(range(10))]
+    series_count = 4
+    data_length = 10
+    series = [f"series-{x}" for x in range(series_count)]
+    x_label = [f"7-{x+1}" for x in range(data_length)]
     for item in series:
         temp = {}
         for label in x_label:
