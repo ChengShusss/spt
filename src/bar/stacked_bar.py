@@ -5,26 +5,60 @@ src: https://blog.csdn.net/m0_45209371/article/details/108241200
 
 """
 
-
-#堆叠条形图
 import matplotlib.pyplot as plt
 import numpy as np
-# %matplotlib inline
+import random
 
-index = np.arange(4)  
-data1 = np.array([1,5,6,3])
-data2 = np.array([1,2,1,5])
-data3 = np.array([4,8,9,4])
 
-a = 0.3
-plt.title('multi bar chart')
+def plot_stacked_bar(data, config):
+    # 加载配置
+    width = config.get("width", 0.8)
+    title = config.get("title", "default title")
+    color_map_name = config.get("color_map_name", "tab20")
+    color_map = plt.get_cmap(color_map_name).colors
 
-plt.bar(index, data1, a, color = 'pink', label = 'a', hatch = '/')
-plt.bar(index, data2, a, bottom = data1,           # 堆叠在第一个上方
-        color = 'c', label = 'b')
-plt.bar(index, data3, a, bottom = (data1 + data2), # 堆叠在第一个和第二个上方
-        color = 'orange', alpha = 0.5,label = 'c')
+    # 每次堆叠时的基准：buttom和color_map
+    pos = [0] * max([len(data[k]) for k in data.keys()])
+    color_index = 0
+    for label, line in data.items():
+        # 获取每行的值
+        values = list(line.values())
+        plt.bar(line.keys(), values, width, bottom = pos, label = label, color=color_map[color_index])
 
-plt.legend()
+        # 更新基准值
+        pos = [pos[i] + values[i] for i in range(len(values))]
+        color_index += 1
 
-plt.show()
+    # 设置题目和图例
+    plt.title(title)
+    plt.legend()
+
+    plt.show()
+
+
+def main():
+    # 配置绘图细节
+    config = {
+        "width": 0.8,
+        "title": "Temp for stacked bar",
+        "color_map_name": "tab20c",
+    }
+
+    # 生成假数据
+    data = {}
+    series = ["series-1", "series-2", "series-3", "series-4", "series-5"]
+    x_label = [f"7-{x+1}" for x in list(range(10))]
+    for item in series:
+        temp = {}
+        for label in x_label:
+            temp[label] = random.randint(5, 20)
+
+        data[item] = temp
+    # 自定义数据，请取消注释下一行，参考data变量的数据结构
+    # print(data)
+
+    # 绘图
+    plot_stacked_bar(data, config)
+
+if (__name__ == "__main__"):
+    main()
