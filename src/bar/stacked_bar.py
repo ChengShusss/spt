@@ -16,6 +16,8 @@ def plot_stacked_bar(data, series=None, x_label=None, config={}):
     title = config.get("title", "default title")
     color_map_name = config.get("color_map_name", "tab20")
     color_map = plt.get_cmap(color_map_name).colors
+    grid = config.get("grid", False)
+    legend = config.get("legend", False)
 
     # 如果没有指定series和x轴标签，则装入默认值
     if not series:
@@ -47,9 +49,10 @@ def plot_stacked_bar(data, series=None, x_label=None, config={}):
 
     # 设置题目和图例
     plt.title(title)
-    plt.legend()
+    if legend:
+        plt.legend()
+    plt.grid(grid)
 
-    plt.show()
 
 
 def main():
@@ -58,6 +61,7 @@ def main():
         "width": 0.8,
         "title": "Temp for stacked bar",
         "color_map_name": "tab20b",
+        "legend": True
     }
 
     # 生成假数据
@@ -78,6 +82,8 @@ def main():
 
     # 绘图
     plot_stacked_bar(data,series=series[:], x_label=x_label[:-3], config=config)
+    
+    plt.show()
 
 
 if (__name__ == "__main__"):

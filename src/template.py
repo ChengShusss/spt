@@ -16,26 +16,27 @@ def plot_xxx(data, x_label=None, config={}):
     title = config.get("title", "default title")
     color_map_name = config.get("color_map_name", "tab20")
     color_map = plt.get_cmap(color_map_name).colors
+    grid = config.get("grid", False)
+    legend = config.get("legend", False)
 
-    
     # ====================================================
     # 绘图逻辑
-    #=====================================================
-
+    # =====================================================
 
     # 设置题目和图例
     plt.title(title)
-    plt.legend()
-
-    plt.show()
+    if legend:
+        plt.legend()
+    plt.grid(grid)
 
 
 def main():
     # 配置绘图细节
     config = {
         "width": 0.8,
-        "title": "Temp for stacked bar",
+        "title": "Temp for Plot",
         "color_map_name": "tab20b",
+        'legend': True
     }
 
     # 生成假数据
@@ -50,12 +51,13 @@ def main():
             temp[label] = random.randint(5, 20)
 
         data[item] = temp
-    
+
     # 自定义数据，请取消注释下一行，参考data变量的数据结构
     # print(data)
 
     # 绘图
-    plot_xxx(data,series=series[:], x_label=x_label[:-3], config=config)
+    plot_xxx(data, config=config)
+    plt.show()
 
 
 if (__name__ == "__main__"):
